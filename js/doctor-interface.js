@@ -5,12 +5,14 @@ $(document).ready(function() {
   var symptoms = new Symptom();
   symptoms.getSymptoms(populateCheckboxes);
 
-  $('#test-form').submit(function(event) {
+  $('#symptom-form').submit(function(event) {
     event.preventDefault();
-    var input = $('#test-input').val();
-    var doctor = new Doctor();
-    var output = doctor.getDoctors(input);
-    $('#test-result').text(output);
+    var checked = [];
+    $('input[type="checkbox"]:checked').each(function() {
+      checked.push($(this).val());
+    });
+    console.log(checked);
+    // $('#test-result').text(output);
   });
 });
 
@@ -20,14 +22,5 @@ var populateCheckboxes = function(symptomList) {
 
   symptomList.forEach(function(symptom) {
     $('#symptom-checkboxes').append("<input type='checkbox' name='symptoms' value='" + symptom.name + "'>" + symptom.name + "<br>");
-
-  //   var checkbox = document.createElement('input');
-  //   checkbox.type = "checkbox";
-  //   checkbox.name = "symptoms";
-  //   checkbox.value = "REPLACE WITH NAME";
-  //   var checkDiv = document.getElementById('symptom-checkboxes');
-  //   checkDiv.appendChild(checkbox);
-  //   checkDiv.append("NAME")
-  //   checkDiv.innerHTML("<br>");
   });
 };
