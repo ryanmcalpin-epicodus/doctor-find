@@ -1,4 +1,5 @@
 var apiKey = require('./../.env').apiKey;
+var geoApiKey = require('./../.env').geoApiKey;
 
 function Doctor() {
 }
@@ -8,7 +9,18 @@ Doctor.prototype.testFunction = function(input) {
   return output;
 };
 
-Doctor.prototype.getDoctors = function(symptoms, displayDoctors) {
+Doctor.prototype.getDoctors = function(symptoms, zipCode, displayDoctors) {
+  $.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + zipCode + '&key=' + geoApiKey)
+    .then(function(result) {
+      console.log('sucksess');
+      var latLong = result.results[0].geometry.location.lat + "," + result.results[0].geometry.location.lng;
+      console.log(latLong);
+    })
+    .fail(function(error) {
+      console.log('fael');
+      $('#info').text("We're sorry, something went wrong!");
+    });
+
   $.get('https://api.betterdoctor.com/2016-03-01/doctors?query='+ symptoms.join(",") + '&location=45.5231%2C-122.6765%2C%205&user_location=45.5231%2C-122.6765&skip=0&user_key=' + apiKey)
    .then(function(result) {
       var doctors = result.data;
@@ -16,7 +28,7 @@ Doctor.prototype.getDoctors = function(symptoms, displayDoctors) {
       console.log(doctors);
     })
    .fail(function(error){
-      $('#results').text(error.responseJSON.message);
+      $('#info').text("We're sorry, something went wrong!");
     });
 };
 

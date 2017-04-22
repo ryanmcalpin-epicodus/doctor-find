@@ -11,12 +11,20 @@ $(document).ready(function() {
     $('input[type="checkbox"]:checked').each(function() {
       checked.push($(this).val());
     });
-    console.log(checked);
-    var doctor = new Doctor();
-    doctor.getDoctors(checked, displayDoctors);
+    var zipCode = $('#zip').val();
+    if (zipCode.length !== 5) {
+      $('#info').text("Invalid Zip Code").append("<br><span class='home-link'>Try Again</span>");
+      $('.home-link').click(function() {
+        location.reload();
+      });
+      $('#symptom-form').hide();
+    } else {
+      var doctor = new Doctor();
+      doctor.getDoctors(checked, zipCode, displayDoctors);
+    }
   });
 
-  $('#home-link').click(function() {
+  $('.home-link').click(function() {
     location.reload();
   });
 });
