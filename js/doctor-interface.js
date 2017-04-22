@@ -12,15 +12,30 @@ $(document).ready(function() {
       checked.push($(this).val());
     });
     console.log(checked);
-    // $('#test-result').text(output);
+    var doctor = new Doctor();
+    doctor.getDoctors(checked, displayDoctors);
+  });
+
+  $('.jumbotron').click(function() {
+    location.reload();
   });
 });
 
 var populateCheckboxes = function(symptomList) {
-  console.log("pop: ");
-  console.log(symptomList);
-
   symptomList.forEach(function(symptom) {
     $('#symptom-checkboxes').append("<input type='checkbox' name='symptoms' value='" + symptom.name + "'>" + symptom.name + "<br>");
   });
+};
+
+var displayDoctors = function(doctors) {
+  $('#symptom-form').hide();
+  if (doctors.length === 0) {
+    $('#info').text("Sorry, no results were found.");
+  } else {
+    $('#info').text("Matched results:");
+    doctors.forEach(function(doctor) {
+      $('#results').append("<div class='panel-default'><div class='panel-header'><h4>" + doctor.first_name + " " + doctor.last_name + ", " + doctor.title + "</h4></div><div class='panel-body'>" + doctor.bio + "</div></div>");
+    });
+  }
+  window.scrollTo(0, 0);
 };
