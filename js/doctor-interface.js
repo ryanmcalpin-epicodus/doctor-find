@@ -16,7 +16,7 @@ $(document).ready(function() {
     doctor.getDoctors(checked, displayDoctors);
   });
 
-  $('.jumbotron').click(function() {
+  $('#home-link').click(function() {
     location.reload();
   });
 });
@@ -34,7 +34,7 @@ var displayDoctors = function(doctors) {
   } else {
     $('#info').text("Matched results:");
     doctors.forEach(function(doctor) {
-      $('#results').append("<div class='panel panel-default'><div class='panel-heading'><h4>" + doctor.first_name + " " + doctor.last_name + ", " + doctor.title + "</h4></div><div class='panel-body'>" + doctor.bio + "</div></div>");
+      $('#results').append("<div class='panel panel-default'><div class='panel-heading'><h4>" + doctor.profile.first_name + " " + doctor.profile.last_name + ", " + doctor.profile.title + "</h4></div><div class='panel-body'>" + doctor.profile.bio + "</div></div>");
     });
   }
   window.scrollTo(0, 0);
