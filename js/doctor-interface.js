@@ -37,14 +37,9 @@ var displayDoctors = function(doctors) {
   } else {
     $('#info').text("Matched results:");
     doctors.forEach(function(doctor) {
-      var rating = "";
-      if (doctor.ratings[0] == null) {
-        rating = "n/a";
-      } else {
-        rating = doctor.ratings[0].rating;
-      }
       var doc = new Doctor();
       var landline = doc.getLandline(doctor);
+      var rating = doc.getRating(doctor);
       $('#results').append("<div class='panel panel-default'><div class='panel-heading'><h4>" + doctor.profile.first_name + " " + doctor.profile.last_name + ", " + doctor.profile.title + " | " + doctor.practices[0].name + " | " + landline + "<br>Rating: " + rating + "</h4></div><div class='panel-body'>" + doctor.profile.bio + "</div></div>");
     });
   }

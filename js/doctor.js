@@ -41,4 +41,19 @@ Doctor.prototype.getLandline = function(doctor) {
   return landline;
 };
 
+Doctor.prototype.getRating = function(doctor) {
+  console.log(doctor);
+  var rating = "";
+  if (doctor.ratings.length === 0) {
+    rating = "unavailable";
+  } else {
+    doctor.ratings.forEach(function(rtngs) {
+      if (rtngs.provider === "betterdoctor") {
+        rating = rtngs.rating + " / 5";
+      }
+    });
+  }
+  return rating;
+}
+
 exports.doctorModule = Doctor;
