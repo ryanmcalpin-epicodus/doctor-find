@@ -38,7 +38,6 @@ Doctor.prototype.getLandline = function(doctor) {
     }
   });
   landline = landline.slice(0, 3) + "-" + landline.slice(3, 6) + "-" + landline.slice(6, 10);
-  console.log("landline: " + landline);
   return landline;
 };
 
