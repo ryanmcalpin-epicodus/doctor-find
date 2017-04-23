@@ -12,8 +12,9 @@ $(document).ready(function() {
       checked.push($(this).val());
     });
     var zipCode = $('#zip').val();
+    var distance = $('#distance').val();
     var doctor = new Doctor();
-    doctor.getDoctors(checked, zipCode, displayDoctors);
+    doctor.getDoctors(checked, zipCode, distance, displayDoctors);
   });
 
   $('.home-link').click(function() {
