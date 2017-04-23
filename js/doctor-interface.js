@@ -16,7 +16,6 @@ $(document).ready(function() {
     var doctor = new Doctor();
     doctor.getDoctors(checked, zipCode, distance, displayDoctors);
   });
-
   $('.home-link').click(function() {
     location.reload();
   });
@@ -31,7 +30,10 @@ var populateCheckboxes = function(symptomList) {
 var displayDoctors = function(doctors) {
   $('#symptom-form').hide();
   if (doctors.length === 0) {
-    $('#info').text("Sorry, no results were found.");
+    $('#info').text("Sorry, no results were found.").append("<br><span class='home-link'>Try Again</span>");
+    $('.home-link').click(function() {
+      location.reload();
+    });
   } else {
     $('#info').text("Matched results:");
     doctors.forEach(function(doctor) {
