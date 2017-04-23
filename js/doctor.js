@@ -13,22 +13,18 @@ Doctor.prototype.getDoctors = function(symptoms, zipCode, distance, displayDocto
   var latLong = "";
   $.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + zipCode + '&key=' + geoApiKey)
     .then(function(result) {
-      console.log('sucksess');
       latLong = result.results[0].geometry.location.lat + "%2C" + result.results[0].geometry.location.lng;
-      console.log(latLong);
     }).then(function() {
-      $.get('https://api.betterdoctor.com/2016-03-01/doctors?query='+ symptoms.join(",") + '&location=' + latLong + '%2C' + distance + '&skip=0&limit=100&user_key=' + apiKey)
+      $.get('https://api.betterdoctor.com/2016-03-01/doctors?query='+ symptoms.join(",") + '&location=' + latLong + '%2C' + distance + '&sort=rating-desc&skip=0&limit=100&user_key=' + apiKey)
       .then(function(result) {
         var doctors = result.data;
         displayDoctors(doctors);
-        console.log(doctors);
       })
       .fail(function(error){
         $('#info').text("We're sorry, something went wrong!");
       });
     })
     .fail(function(error) {
-      console.log('fael');
       $('#info').text("We're sorry, something went wrong!");
     });
 
